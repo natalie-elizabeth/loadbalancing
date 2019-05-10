@@ -5,28 +5,28 @@
     "builders": [
         {
             "type": "googlecompute",
-            "account_file": "../database_load.json",
+            "account_file": "../../database_load.json",
             "machine_type": "f1-micro",
             "project_id": "{{ user `project_id` }}",
             "source_image": "ubuntu-1604-xenial-v20181004",
             "region": "europe-west1",
             "zone": "europe-west1-b",
             "ssh_username": "packer",
-            "disk_size": 10,
-            "image_name": "master-image-lb",
-            "image_family": "packer-master"
+            "disk-size": "10",
+            "image_name": "haproxy-image",
+            "image_family": "packer-haproxy"
         }
     ],
     "provisioners": [
         {
             "type": "file",
-            "source": "./scripts/create_haproxy_users.sh",
-            "destination": "/home/packer/create_haproxy_users.sh"
+            "source": "./scripts/slave_replication.sh",
+            "destination": "/home/packer/slave_replication.sh"
         },
         {
             "type": "shell",
             "scripts": [
-                "scripts/master_setup.sh"
+                "scripts/slave_config.sh"
             ]
         }
     ]
