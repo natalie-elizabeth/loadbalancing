@@ -28,7 +28,7 @@
     {
       "type": "shell",
       "scripts": [
-        "scripts/slave_config.sh"
+        "scripts/slave_setup.sh"
       ]
     }
   ]

@@ -1,33 +1,27 @@
 {
-    "variables": {
-        "project_id": "{{ env `PROJECT_ID` }}"
-    },
-    "builders": [
-        {
-            "type": "googlecompute",
-            "account_file": "../../database_load.json",
-            "machine_type": "f1-micro",
-            "project_id": "{{ user `project_id` }}",
-            "source_image": "ubuntu-1604-xenial-v20181004",
-            "region": "europe-west1",
-            "zone": "europe-west1-b",
-            "ssh_username": "packer",
-            "disk-size": "10",
-            "image_name": "haproxy-image",
-            "image_family": "packer-haproxy"
-        }
-    ],
-    "provisioners": [
-        {
-            "type": "file",
-            "source": "./scripts/slave_replication.sh",
-            "destination": "/home/packer/slave_replication.sh"
-        },
-        {
-            "type": "shell",
-            "scripts": [
-                "scripts/slave_config.sh"
-            ]
-        }
-    ]
+  "variables": {
+    "project_id": "{{ env `PROJECT_ID` }}"
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "database_load.json",
+      "machine_type": "n1-standard-1",
+      "project_id": "{{ user `project_id` }}",
+      "source_image": "ubuntu-1604-xenial-v20190430",
+      "region": "europe-west1",
+      "zone": "europe-west1-b",
+      "ssh_username": "packer",
+      "disk_size": 10,
+      "image_name": "haproxy-image-lb",
+      "image_family": "packer-haproxy"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "scripts/haproxy.sh",
+      "destination": "/home/packer/haproxy.sh"
+    }
+  ]
 }
