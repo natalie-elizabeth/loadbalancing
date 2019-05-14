@@ -15,7 +15,7 @@
       "zone": "europe-west1-b",
       "ssh_username": "packer",
       "disk_size": 10,
-      "image_name": "slave-image-lb",
+      "image_name": "{{user `image_name`}}",
       "image_family": "packer-slave"
     }
   ],

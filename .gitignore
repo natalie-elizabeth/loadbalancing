@@ -1,1 +1,5 @@
 database_load.json
+slave1_build_output.log
+slave2_build_output.log
+haproxy_build_output.log
+master_build_output.log
