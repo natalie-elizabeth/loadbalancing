@@ -29,7 +29,7 @@ resource "google_compute_instance" "slave1" {
 
     boot_disk {
         initialize_params {
-            image = "slave1image-lb"
+            image = "slave1"
         }
     }
 
@@ -49,7 +49,7 @@ resource "google_compute_instance" "slave2" {
 
     boot_disk {
         initialize_params {
-            image = "slave-image"
+            image = "slave2"
         }
     }
 
