@@ -1,11 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# script to install mysql-server and configure server as a master
-
-# exit when a command fails
 set -o errexit
 
-# exit if previous command returns a non 0 status
 set -o pipefail
 
 export DEBIAN_FRONTEND="noninteractive"
@@ -15,22 +11,20 @@ MYSQL_PASSWORD=$(curl http://metadata.google.internal/computeMetadata/v1/project
 SLAVE_UNAME=$(curl http://metadata.google.internal/computeMetadata/v1/project/attributes/slave_username -H "Metadata-Flavor: Google")
 SLAVE_PASSWORD=$(curl http://metadata.google.internal/computeMetadata/v1/project/attributes/slave_password -H "Metadata-Flavor: Google")
 
-
-# update available packages
 create_environment() {
-    echo "*******Updating packages*******"
+  echo "*******Updating packages*******"
 
-    sudo apt update -y
-    sudo apt-get upgrade -y
+  sudo apt update -y
+  sudo apt-get upgrade -y
 
-    echo "*******Setup Mysql*************"
+  echo "*******Setup Mysql*************"
 
-    sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_PASSWORD}"
-    sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${MYSQL_PASSWORD}"
+  sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_PASSWORD}"
+  sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${MYSQL_PASSWORD}"
 
-    sudo apt-get install mysql-server -y
+  sudo apt-get install mysql-server -y
 
-    echo '********Successfully installed MySQL.********'
+  echo '********Successfully installed MySQL.********'
 }
 
 update_config_file() {
