@@ -20,5 +20,5 @@ variable "haproxy_internal_ip" {
 
 variable "haproxy_external_ip" {
   type    = "string"
-  default = "35.205.220.15"
+  default = "35.205.146.64"
 }

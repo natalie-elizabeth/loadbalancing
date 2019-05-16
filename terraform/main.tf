@@ -1,7 +1,9 @@
 provider "google" {
     credentials  = "${file("../database_load.json")}"
     project      = "${var.project}"
+    region       = "${var.region}"
 }
+
 resource "google_compute_instance" "master" {
     name         = "master"
     machine_type = "f1-micro"
@@ -12,14 +14,13 @@ resource "google_compute_instance" "master" {
             image = "master-image-lb"
         }
     }
-
     network_interface {
-        network = "default"
+    network = "default"
 
-        access_config {
-            // Ephemeral IP
-        }
+    access_config {
+      // Ephemeral IP
     }
+  }
 }
 
 resource "google_compute_instance" "slave1" {
@@ -36,12 +37,11 @@ resource "google_compute_instance" "slave1" {
     network_interface {
         network = "default"
 
-        access_config {
-            // Ephemeral IP
-        }
+    access_config {
+      // Ephemeral IP
     }
+  }
 }
-
 resource "google_compute_instance" "slave2" {
     name         = "slave2"
     machine_type = "f1-micro"
@@ -55,31 +55,29 @@ resource "google_compute_instance" "slave2" {
 
     network_interface {
         network = "default"
-
-        access_config {
-            // Ephemeral IP
-        }
+    access_config {
+      // Ephemeral IP
     }
+  }
 }
 
 resource "google_compute_instance" "haproxy" {
-    name         = "haproxy"
-    machine_type = "f1-micro"
-    zone         = "${var.zone}"
+  name         = "haproxy"
+  machine_type = "f1-micro"
+  zone         = "${var.zone}"
 
-    boot_disk {
-        initialize_params {
-            image = "haproxy-image"
-        }
+  boot_disk {
+    initialize_params {
+      image = "haproxy-image-lb"
     }
+  }
 
-    network_interface {
-        network    = "default"
-        network_ip = "${var.haproxy_internal_ip}"
+  network_interface {
+    network    = "default"
+    network_ip = "${var.haproxy_internal_ip}"
 
-        access_config {
-        nat_ip = "${var.haproxy_external_ip}"
-        }
+    access_config {
+      nat_ip = "${var.haproxy_external_ip}"
     }
-
+  }
 }

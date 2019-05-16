@@ -10,7 +10,7 @@
       "account_file": "database_load.json",
       "machine_type": "n1-standard-1",
       "project_id": "{{ user `project_id` }}",
-      "source_image": "ubuntu-1604-xenial-v20190430",
+      "source_image": "ubuntu-1604-xenial-v20190514",
       "region": "europe-west1",
       "zone": "europe-west1-b",
       "ssh_username": "packer",
