@@ -40,10 +40,10 @@ build_haproxy_image() {
 }
 
 main() {
-    validate_packer_mages
-    build_master_image
-    build_slave1_image
-    build_slave2_image
+    #validate_packer_mages
+    #build_master_image
+    #build_slave1_image
+    #build_slave2_image
     build_haproxy_image
 }
 

@@ -42,6 +42,7 @@ resource "google_compute_instance" "slave1" {
     }
   }
 }
+
 resource "google_compute_instance" "slave2" {
     name         = "slave2"
     machine_type = "f1-micro"

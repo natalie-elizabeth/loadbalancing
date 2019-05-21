@@ -16,10 +16,10 @@ create_environment() {
 
   echo "*******Setup Mysql*************"
 
-  sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_PASSWORD}"
-  sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${MYSQL_PASSWORD}"
+  # sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_PASSWORD}"
+  # sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${MYSQL_PASSWORD}"
 
-  sudo apt-get install mysql-server -y
+  sudo apt-get install mysql-client -y
 
   echo '********Successfully installed MySQL.********'
 }
@@ -38,31 +38,31 @@ setup_haproxy() {
   sudo cp /etc/haproxy/haproxy.cfg{,.original}
   echo 'Done backing up existing config file.'
 
-  sudo sed -i "s/.*mode*/# mode http/" /etc/haproxy/haproxy.cfg
-  sudo sed -i "s/.*httplog*/# option httplog/" /etc/haproxy/haproxy.cfg
-
+  # sudo sed -i "s/.*mode*/# mode http/" /etc/haproxy/haproxy.cfg
+  # sudo sed -i "s/.*httplog*/# option httplog/" /etc/haproxy/haproxy.cfg
+  sudo mv /home/packer/haproxy.cfg /etc/haproxy/haproxy.cfg
   echo '********Setup complete********'
 }
 
-turn_selinux_boolean_on() {
-  echo 'About to turn on the haproxy_connect_any boolean....'
+# turn_selinux_boolean_on() {
+#   echo 'About to turn on the haproxy_connect_any boolean....'
 
-  sudo su
-  echo exit 101 > /usr/sbin/policy-rc.d
-  chmod +x /usr/sbin/policy-rc.d
-  apt-get install policycoreutils -y
-  rm -f /usr/sbin/policy-rc.d
+#   sudo su
+#   echo exit 101 > /usr/sbin/policy-rc.d
+#   chmod +x /usr/sbin/policy-rc.d
+#   apt-get install policycoreutils -y
+#   rm -f /usr/sbin/policy-rc.d
 
-  # turn on the haproxy_connect_any boolean so haproxy can connect to all TCP ports
-  setsebool -P haproxy_connect_any on
+#   # turn on the haproxy_connect_any boolean so haproxy can connect to all TCP ports
+#   setsebool -P haproxy_connect_any on
 
-  echo 'HAProxy can now connect to all TCP ports. Scipt completed successfully!'
-}
+#   echo 'HAProxy can now connect to all TCP ports. Scipt completed successfully!'
+# }
 
 main() {
     create_environment
     setup_haproxy
-    turn_selinux_boolean_on
+    # turn_selinux_boolean_on
 }
 
 main "$@"

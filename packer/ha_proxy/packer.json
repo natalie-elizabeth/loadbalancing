@@ -20,8 +20,14 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "scripts/haproxy.sh",
-      "destination": "/home/packer/haproxy.sh"
+      "source": "scripts/haproxy.cfg",
+      "destination": "/home/packer/haproxy.cfg"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/haproxy.sh"
+      ]
     }
   ]
 }
