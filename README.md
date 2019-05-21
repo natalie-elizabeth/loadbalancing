@@ -19,3 +19,4 @@ Once that is done for the master and slaves, update the cfg file under mysql-clu
 To access the stats page, you will need the HaProxy External IP and the port that the stats page has been bound to. In this case: `http://HaProxy_IP:8000`
 
 Sample image:
+![haproxy stats](images/haprxy.png?raw=true "haproxy stats")
