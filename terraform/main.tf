@@ -1,20 +1,21 @@
 provider "google" {
-    credentials  = "${file("../database_load.json")}"
-    project      = "${var.project}"
-    region       = "${var.region}"
+  credentials = "${file("../database_load.json")}"
+  project     = "${var.project}"
+  region      = "${var.region}"
 }
 
 resource "google_compute_instance" "master" {
-    name         = "master"
-    machine_type = "f1-micro"
-    zone         = "${var.zone}"
+  name         = "master"
+  machine_type = "f1-micro"
+  zone         = "${var.zone}"
 
-    boot_disk {
-        initialize_params {
-            image = "master-image-lb"
-        }
+  boot_disk {
+    initialize_params {
+      image = "master-image-lb"
     }
-    network_interface {
+  }
+
+  network_interface {
     network = "default"
 
     access_config {
@@ -24,18 +25,18 @@ resource "google_compute_instance" "master" {
 }
 
 resource "google_compute_instance" "slave1" {
-    name         = "slave1"
-    machine_type = "f1-micro"
-    zone         = "${var.zone}"
+  name         = "slave1"
+  machine_type = "f1-micro"
+  zone         = "${var.zone}"
 
-    boot_disk {
-        initialize_params {
-            image = "slave1"
-        }
+  boot_disk {
+    initialize_params {
+      image = "slave1"
     }
+  }
 
-    network_interface {
-        network = "default"
+  network_interface {
+    network = "default"
 
     access_config {
       // Ephemeral IP
@@ -44,18 +45,19 @@ resource "google_compute_instance" "slave1" {
 }
 
 resource "google_compute_instance" "slave2" {
-    name         = "slave2"
-    machine_type = "f1-micro"
-    zone         = "${var.zone}"
+  name         = "slave2"
+  machine_type = "f1-micro"
+  zone         = "${var.zone}"
 
-    boot_disk {
-        initialize_params {
-            image = "slave2"
-        }
+  boot_disk {
+    initialize_params {
+      image = "slave2"
     }
+  }
 
-    network_interface {
-        network = "default"
+  network_interface {
+    network = "default"
+
     access_config {
       // Ephemeral IP
     }

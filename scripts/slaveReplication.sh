@@ -44,7 +44,8 @@ setup_slave_replication() {
 restore_data_from_master_dump() {
   echo "About to restore data from dump..."
 
-  sudo mysql -uroot -p"${MYSQL_PASSWORD}" < masterdbdump.sql
+  sudo :q
+  :qroot -p"${MYSQL_PASSWORD}" < masterdbdump.sql
 
   echo "Successfully restored data from dump"
 }

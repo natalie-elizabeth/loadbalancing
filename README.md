@@ -11,9 +11,13 @@ of the page that can be used to take you wherever you want.
 to add project-wide metadata `gcloud compute project-info add-metadata --metadata slave_password=password,slave_username=user`
 - If you haven't already, install packer and terraform to your machine.
 
+
 ## Deployment
 Run the commands under deploy.sh. For each of ther servers, bake the image first then run `terraform apply` so you can get the internal IP addresses to be used in the Haproxy config file.
 Once that is done for the master and slaves, update the cfg file under mysql-cluster with the correct internal IP addresses. AFter that, run the packer build step for HaProxy then terraform.
+
+## TO-DO In the instances
+Master Instance:- After ssh-ing into this instance, navigate to the packer directory that has the  `haproxyUserSetup.sh` file and run it. The password is the password you set in the MYSQL_PASSWORD variable. Then exchange ssh keys with the slaves
 
 ### Accessing the HAproxy statistics page
 To access the stats page, you will need the HaProxy External IP and the port that the stats page has been bound to. In this case: `http://HaProxy_IP:8000`
