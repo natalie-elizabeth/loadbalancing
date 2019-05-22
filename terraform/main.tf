@@ -21,8 +21,7 @@ resource "google_compute_instance" "master" {
 
     access_config {
       // Ephemeral IP
-      nat_ip = "${var.master_external_ip}"
-    }
+
   }
 }
 
@@ -43,7 +42,6 @@ resource "google_compute_instance" "slave1" {
 
     access_config {
       // Ephemeral IP
-      nat_ip = "${var.slave1_external_ip}"
     }
   }
 }
@@ -64,7 +62,7 @@ resource "google_compute_instance" "slave2" {
     network_ip = "${var.slave2_internal_ip}"
 
     access_config {
-      nat_ip = "${var.slave2_external_ip}"
+      // Ephemeral IP
     }
   }
 }
