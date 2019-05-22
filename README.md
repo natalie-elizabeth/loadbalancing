@@ -20,6 +20,7 @@ Once that is done for the master and slaves, update the cfg file under mysql-clu
 Master Instance:- After ssh-ing into this instance, navigate to the packer directory that has the  `haproxyUserSetup.sh` file and run it. The password is the password you set in the MYSQL_PASSWORD variable. Then exchange ssh keys with the slaves
 Slave Instances:- Once you've copied the masterdbdump.sql file to the slaves, navigate to the packer directory and run the `slaveReplication.sh` file.  This should create a situation where the master and slaves can communicate simply replication completed.
 Haproxy Instance:- Go to the /etc/haproxy/haproxy.cfg and check whether the Internal IPs match the onces of the master and slaves. To confirm that the file has no errors, run `haproxy -c -V -f /etc/haproxy/haproxy.cfg`. If there are any changes to be applied, you will need to restart the service. Use: `service haproxy restart`. We use service because the Haproxy instance is running on Ubuntu 14. 
+For this however, you will not need to change the IP address unless of course you are in a different zone. For each region, GCP has different cidr block.
 
 N.B. Running Haproxy on Ubuntu 16.04 might result in errors with the SElinux application when a reboot is done. You might end up with a `connection reset by peer` error that may not be solved by restarting the server.
 
